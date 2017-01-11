@@ -1,9 +1,9 @@
 package chalmers_chop
 
 import (
-	"strings"
-	"github.com/mmcdole/gofeed"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/mmcdole/gofeed"
+	"strings"
 )
 
 func ParseWeeklyFeed(feed *gofeed.Feed) []Menu {
@@ -52,7 +52,7 @@ The first <td> contains the dish name, surrounded by a <b> tag
 The second <td> contains the dish contents
 
 Dish price and allergy information is not available in the source data
- */
+*/
 func parseDishes(item *gofeed.Item) []Dish {
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(item.Description))
 

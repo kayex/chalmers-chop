@@ -10,15 +10,15 @@ const (
 )
 
 type Dish struct {
-	Name string
-	Contents string
-	Price int
+	Name      string
+	Contents  string
+	Price     int
 	Allergens []Allergen
 }
 
 func NewDish(name, contents string) *Dish {
 	return &Dish{
-		Name: name,
+		Name:     name,
 		Contents: contents,
 	}
 }

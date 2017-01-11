@@ -1,7 +1,7 @@
 package chalmers_chop
 
 type Restaurant struct {
-	Title string
+	Title    string
 	ImageUrl string
-	Menus Menu
+	Menus    Menu
 }
