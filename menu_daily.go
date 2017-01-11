@@ -1,10 +1,10 @@
 package chalmers_chop
 
 import (
+	"errors"
 	"github.com/mmcdole/gofeed"
 	"strconv"
 	"strings"
-	"errors"
 	"time"
 )
 
@@ -113,7 +113,7 @@ The dish allergens can be determined by checking the <description> tag for <img>
 
 For example, the following dish contains the allergen "Gluten":
 	<![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
- */
+*/
 func parseAllergens(desc string) []Allergen {
 	var a []Allergen
 
