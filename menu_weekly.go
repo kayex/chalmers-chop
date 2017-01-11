@@ -54,13 +54,12 @@ The second <td> contains the dish contents
 Dish price and allergy information is not available in the source data
 */
 func parseDishes(item *gofeed.Item) []Dish {
+	var dishes []Dish
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(item.Description))
 
 	if err != nil {
 		panic(err)
 	}
-
-	var dishes []Dish
 
 	doc.Find("table tr").Each(func(i int, tr *goquery.Selection) {
 		var dish Dish
