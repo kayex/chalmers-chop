@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 )
 
-
 func FromToml(filename string) Config {
 	var conf Config
 
