@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/kayex/chalmers-chop"
 	"github.com/kayex/chalmers-chop/config"
 	"github.com/mmcdole/gofeed"
@@ -16,7 +15,8 @@ func main() {
 
 	for _, restConf := range conf.Restaurants {
 		var rest chalmers_chop.Restaurant
-		fmt.Printf("Menus for %v\n", restConf.Name)
+
+		rest.Name = restConf.Name
 
 		fp := gofeed.NewParser()
 		dailyFeed, _ := fp.ParseURL(restConf.DailyMenuURL)
@@ -31,11 +31,29 @@ func main() {
 		rs = append(rs, rest)
 	}
 
-	b, err := json.Marshal(rs[0])
+	b, err := toJson(rs)
 
 	if err != nil {
 		panic(err)
 	}
 
 	ioutil.WriteFile("out.json", b, 0644)
+}
+
+type OutputJson struct {
+	Restaurants []chalmers_chop.Restaurant `json:"restaurants"`
+}
+
+func toJson(rest []chalmers_chop.Restaurant) ([]byte, error) {
+	out := OutputJson{
+		Restaurants: rest,
+	}
+
+	b, err := json.Marshal(out)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }
