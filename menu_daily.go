@@ -74,7 +74,6 @@ The dish contents, price, and allergy information is contained in a CDATA tag in
 		 name                 price                                                                             allergen
  </description>
 
-Each allergen is represented with an <img> tag, where the "src" attribute can be converted to an Allergen using the allergenImages map.
 */
 func parseDish(item *gofeed.Item) Dish {
 	var dish Dish
@@ -109,7 +108,12 @@ func parsePrice(desc string) int {
 	return p
 }
 
-// The dish allergens can be determined by checking the <description> tag for occurrences of keys of allergenImages
+/*
+The dish allergens can be determined by checking the <description> tag for <img> tags.
+
+For example, the following dish contains the allergen "Gluten":
+	<![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
+ */
 func parseAllergens(desc string) []Allergen {
 	var a []Allergen
 
