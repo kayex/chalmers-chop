@@ -5,7 +5,7 @@ type Allergen int
 const (
 	Gluten Allergen = iota
 	Egg
-	Milk
+	Lactose
 )
 
 type Dish struct {
