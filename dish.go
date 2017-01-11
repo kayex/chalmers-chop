@@ -6,6 +6,7 @@ const (
 	Gluten Allergen = iota
 	Egg
 	Lactose
+	Fish
 )
 
 type Dish struct {
