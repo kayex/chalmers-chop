@@ -1,9 +1,9 @@
 package chalmers_chop
 
 type Menu struct {
-	Title  string
-	Date   string
-	Dishes []Dish
+	Title  string `json:"title"`
+	Date   string `json:"date"`
+	Dishes []Dish `json:"dishes"`
 }
 
 func NewMenu(title string, date string) *Menu {

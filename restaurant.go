@@ -1,6 +1,6 @@
 package chalmers_chop
 
 type Restaurant struct {
-	Name  string
-	Menus []Menu
+	Name  string `json:"name"`
+	Menus []Menu `json:"menus"`
 }
