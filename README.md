@@ -142,7 +142,7 @@ Authorization: Token {token}
   ]
 }
 ```
-The `price` and `allergens` fields are optional, and may not be included depending on the completeness of the source data. The `area` field is mapped directly from the [restaurant.`name`] values in the config file.
+The `price` and `allergens` fields are optional, and may not be included depending on the completeness of the source data. The `area` field is mapped directly from the [restaurant.`area`] values in the config file.
 
 # License
 MIT
