@@ -56,13 +56,18 @@ type Restaurant struct {
 
 ```
 
-## Standalone Binary
+## Standalone binary
 The standalone binary offers various ways of exporting the menu data as JSON. Currently the only supported export method is a POST-request, with an optional authentication header.
 
 ###
-Compilation
+**Building**
 ```bash
-go build github.com/kayex/chalmers-chop/cmd/chop
+$ go build github.com/kayex/chalmers-chop/cmd/chop
+```
+
+**Running**
+```bash
+$ ./chop
 ```
 
 ### Config
