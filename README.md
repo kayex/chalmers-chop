@@ -6,7 +6,7 @@ Chalmer's Chop exposes both a binary for outputting menus as JSON as well as a G
 
 A full list of restaurant RSS feeds can be found [here](http://chalmerskonferens.se/en/rss-2/).
 
-## GO API
+## Go API
 ```go
 import (
 	"github.com/kayex/chalmers-chop"
