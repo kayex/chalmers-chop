@@ -6,7 +6,7 @@ Chalmer's Chop exposes both a binary for outputting menus as JSON as well as a G
 
 A full list of restaurant RSS feeds can be found [here](http://chalmerskonferens.se/en/rss-2/).
 
-## GO API
+## Go API
 ```go
 import (
 	"github.com/kayex/chalmers-chop"
@@ -16,10 +16,10 @@ import (
 rss := "http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss"
 restaurant := chalmers_chop.FetchFromRSS(rss)
 
-name := restaurant.Name
+fmt.Println(restaurant.Name)
 
 for _, d := range restaurant.TodaysMenu().Dishes {
-	fmt.Printf("%v (%v) - %v %v", d.Name, d.Contents, d.Price, d.Allergens)
+	fmt.Printf("%v (%v) - %v %v\n", d.Name, d.Contents, d.Price, d.Allergens)
 }
 ```
 
