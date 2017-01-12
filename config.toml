@@ -1,5 +1,4 @@
 [restaurants]
-  [restaurants.karrestaurangen]
-    name = 'Kårrestaurangen'
-    daily_menu = 'http://intern.chalmerskonferens.se/view/restaurant/hyllan/RSS%20Feed.rss?today=true'
-    weekly_menu = 'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss'
+rss = [
+    'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss'
+]
