@@ -70,7 +70,7 @@ $ ./chop
 ```
 
 ### Config
-The program needs a `config.toml` file in the same directory to run. You can find an example config file [here](https://github.com/kayex/chalmers-chop/blob/master/config.toml.example).
+The program needs a `config.toml` file in the same directory to run.
 
 **config.toml**
 ```toml
@@ -89,7 +89,7 @@ rss = [
     'http://intern.chalmerskonferens.se/view/restaurant/l-s-kitchen/Projektor.rss'
 ]
 ```
-### Export types
+### Export methods
 
 #### POST-request
 Sends a simple `POST`-request with the JSON encoded menu data as the body. The application requires the export target to properly reply with a valid `2XX` status code.
