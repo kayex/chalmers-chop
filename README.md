@@ -103,7 +103,7 @@ Authorization: Token {token}
   "restaurants": [
     {
       "name": "Kårrestaurangen",
-      "area": "johanneberg" // Will map directly to the [restaurant.AREA] value in config
+      "area": "johanneberg",
       "menus": [
         {
           "title": "Meny Kårrestaurangen - 2017-01-09",
@@ -124,7 +124,7 @@ Authorization: Token {token}
     },
     {
       "name": "L's Kitchen",
-      "area": "lindholmen"
+      "area": "lindholmen",
       "menus": [
         {
           "title": "Meny Ls Kitchen - 2017-01-09",
@@ -142,7 +142,7 @@ Authorization: Token {token}
   ]
 }
 ```
-The `price` and `allergens` fields are optional, and may not be included depending on the completeness of the source data.
+The `price` and `allergens` fields are optional, and may not be included depending on the completeness of the source data. The `area` field is mapped directly from the [restaurant.`name`] values in the config file.
 
 # License
 MIT
