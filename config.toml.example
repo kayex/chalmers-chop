@@ -1,3 +1,7 @@
+[export]
+url = 'https://api.example.com'
+token = 'secret-token'
+
 [restaurants]
 rss = [
     'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss'

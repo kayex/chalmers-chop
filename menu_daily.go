@@ -109,10 +109,15 @@ func parsePrice(desc string) int {
 }
 
 /*
-The dish allergens can be determined by checking the <description> tag for <img> tags.
+The dish allergens can be determined by searching the <description> tag for
+the filenames found in allergenImages.
 
-For example, the following dish contains the allergen "Gluten":
+For example, the following dish contains the allergen Gluten ("gluten-white.png"):
+
+<description>
 	<![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
+                                                                                                                        ^^^^^^^^^^^^^^^^
+</description>
 */
 func parseAllergens(desc string) []Allergen {
 	var al []Allergen

@@ -7,7 +7,7 @@ type Restaurant struct {
 
 /*
 	Add a menu to the restaurant. Adding a menu with the Date field
-	set to the same value as an existing menu in the slice will
+	set to the same value as that of an existing menu in the slice, will
 	replace the existing menu with the new one.
 */
 func (r *Restaurant) addMenus(menus ...*Menu) {
