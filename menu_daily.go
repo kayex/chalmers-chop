@@ -20,7 +20,7 @@ var allergenImages map[string]Allergen = map[string]Allergen{
 	"FISH_white.png":   Fish,
 }
 
-func ParseDailyFeed(feed *gofeed.Feed) Menu {
+func ParseDailyMenu(feed *gofeed.Feed) Menu {
 	var menu Menu
 
 	menu.Title = feed.Title
@@ -69,9 +69,9 @@ Parses a dish from an item
 The dish contents, price, and allergy information is contained in a CDATA tag inside the <description> tag. For example:
 
 <description>
-	<![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
-		 ^                    ^                                                                                 ^
-		 name                 price                                                                             allergen
+	<![CDATA[Beef, wheat bread, french fries@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
+		 ^                               ^                                                                                 ^
+		 contents                        price                                                                             allergen
  </description>
 
 */
@@ -94,12 +94,12 @@ func parseContents(desc string) string {
 	return strings.Split(desc, "@")[0]
 }
 
-// The dish price is all text content of the <description> tag following the @ sign, until the first space sign
+// The dish price is all text content of the <description> tag following the first @ sign, up until the first space sign
 func parsePrice(desc string) int {
-	split := strings.Split(desc, "@")[1]
-	price := beforeSpace(split)
+	afterAtSign := strings.Split(desc, "@")[1]
+	priceText := beforeSpace(afterAtSign)
 
-	p, err := strconv.Atoi(price)
+	p, err := strconv.Atoi(priceText)
 
 	if err != nil {
 		return 0
@@ -115,15 +115,15 @@ For example, the following dish contains the allergen "Gluten":
 	<![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
 */
 func parseAllergens(desc string) []Allergen {
-	var a []Allergen
+	var al []Allergen
 
-	for k, v := range allergenImages {
+	for k, a := range allergenImages {
 		if strings.Contains(desc, k) {
-			a = append(a, v)
+			al = append(al, a)
 		}
 	}
 
-	return a
+	return al
 }
 
 func trimCDATA(text string) string {
