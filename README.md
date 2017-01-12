@@ -16,7 +16,7 @@ import (
 rss := "http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss"
 restaurant := chalmers_chop.FetchFromRSS(rss)
 
-name := restaurant.Name
+fmt.Println(restaurant.Name)
 
 for _, d := range restaurant.TodaysMenu().Dishes {
 	fmt.Printf("%v (%v) - %v %v\n", d.Name, d.Contents, d.Price, d.Allergens)
