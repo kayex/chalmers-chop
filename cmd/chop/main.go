@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/kayex/chalmers-chop"
 	"github.com/kayex/chalmers-chop/config"
-	"io/ioutil"
 	"sync"
 )
 
@@ -53,20 +52,15 @@ func main() {
 	fmt.Printf("Menus: %v\n", numMenu)
 	fmt.Printf("Dishes: %v\n", numDish)
 
-	b, err := toJson(restaurants)
-
-	if err != nil {
-		panic(err)
-	}
-
-	ioutil.WriteFile("out.json", b, 0644)
+	json := toJson(restaurants)
+	export(json, conf.ExportConfig)
 }
 
 type OutputJson struct {
 	Restaurants []*chalmers_chop.Restaurant `json:"restaurants"`
 }
 
-func toJson(rest []*chalmers_chop.Restaurant) ([]byte, error) {
+func toJson(rest []*chalmers_chop.Restaurant) []byte {
 	out := OutputJson{
 		Restaurants: rest,
 	}
@@ -74,8 +68,17 @@ func toJson(rest []*chalmers_chop.Restaurant) ([]byte, error) {
 	b, err := json.Marshal(out)
 
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return b, nil
+	return b
+}
+
+func export(json []byte, conf config.ExportConfig) {
+	exporter := chalmers_chop.NewPOSTExporter(conf.URL, conf.Token)
+	err := exporter.Export(json)
+
+	if (err != nil) {
+		panic(err)
+	}
 }
