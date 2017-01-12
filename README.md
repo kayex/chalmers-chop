@@ -23,8 +23,10 @@ for _, d := range restaurant.TodaysMenu().Dishes {
 }
 ```
 
-### Structs
+### Types
 ```go
+type Allergen string
+
 const (
 	Gluten  Allergen = "gluten"
 	Egg              = "egg"
