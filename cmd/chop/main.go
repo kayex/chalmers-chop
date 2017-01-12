@@ -6,9 +6,12 @@ import (
 	"github.com/kayex/chalmers-chop"
 	"github.com/kayex/chalmers-chop/config"
 	"sync"
+	"time"
 )
 
 func main() {
+	defer timeTrack(time.Now())
+
 	conf := config.FromToml("config.toml")
 	rssURLs := conf.RestaurantConfig.MenuURLs
 
@@ -78,7 +81,12 @@ func export(json []byte, conf config.ExportConfig) {
 	exporter := chalmers_chop.NewPOSTExporter(conf.URL, conf.Token)
 	err := exporter.Export(json)
 
-	if (err != nil) {
+	if err != nil {
 		panic(err)
 	}
+}
+
+func timeTrack(start time.Time) {
+	elapsed := time.Since(start)
+	fmt.Printf("Completed in %s\n", elapsed)
 }
