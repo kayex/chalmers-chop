@@ -79,9 +79,14 @@ The program needs a `config.toml` file in the same directory to run. You can fin
 url = 'https://api.example.com'
 token = 'secret-token'
 
-[restaurants]
+[restaurants.johanneberg]
 rss = [
     'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss' # One URL per restaurant
+]
+
+[restaurants.lindholmen]
+rss = [
+    'http://intern.chalmerskonferens.se/view/restaurant/l-s-kitchen/Projektor.rss'
 ]
 ```
 
@@ -97,6 +102,7 @@ Authorization: Token {token}
   "restaurants": [
     {
       "name": "Kårrestaurangen",
+      "area": "johanneberg" // Will map directly to the [restaurant.AREA] value in config
       "menus": [
         {
           "title": "Meny Kårrestaurangen - 2017-01-09",
@@ -110,6 +116,23 @@ Authorization: Token {token}
                 "lactose",
                 "gluten"
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "L's Kitchen",
+      "area": "lindholmen"
+      "menus": [
+        {
+          "title": "Meny Ls Kitchen - 2017-01-09",
+          "date": "2017-01-09",
+          "dishes": [
+            {  
+              "name":"Kött",
+              "contents":"Citron- & vitl\u00f6ksmarinerat kyckling, rostade rotfrukter, timjanssky",
+              "price":90
             }
           ]
         }
