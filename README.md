@@ -77,11 +77,11 @@ The program needs a `config.toml` file in the same directory to run. You can fin
 ```toml
 [export]
 url = 'https://api.example.com'
-token = 'secret-token' # Will be sent as the header "Authorization: Token secret-token"
+token = 'secret-token'
 
 [restaurants]
 rss = [
-    'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss' # Only weekly menu urls are necessary.
+    'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss' # One URL per restaurant
 ]
 ```
 
