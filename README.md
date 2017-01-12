@@ -55,3 +55,6 @@ type Restaurant struct {
 }
 
 ```
+
+# License
+MIT
