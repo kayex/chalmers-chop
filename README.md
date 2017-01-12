@@ -107,7 +107,7 @@ Authorization: Token {token}
           ]
         }
       ]
-    },
+    }
   ]
 }
 ```
