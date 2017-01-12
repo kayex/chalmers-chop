@@ -96,9 +96,9 @@ Authorization: Token {token}
           "date": "2017-01-09",
           "dishes": [
             {  
-              "name":"Classic Sallad",
-              "contents":"Marinerad Fetaost, olivsallad, vitlöksbröd",
-              "price":80,
+              "name": "Classic Sallad",
+              "contents": "Marinerad Fetaost, olivsallad, vitlöksbröd",
+              "price": 80,
               "allergens": [  
                 "lactose",
                 "gluten"
