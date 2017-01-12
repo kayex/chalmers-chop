@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func ParseWeeklyFeed(feed *gofeed.Feed) []Menu {
-	var menus []Menu
+func ParseWeeklyMenu(feed *gofeed.Feed) []*Menu {
+	var menus []*Menu
 
 	for _, item := range feed.Items {
 		var menu Menu
@@ -16,7 +16,7 @@ func ParseWeeklyFeed(feed *gofeed.Feed) []Menu {
 		menu.Date = parseDate(item)
 		menu.Dishes = parseDishes(item)
 
-		menus = append(menus, menu)
+		menus = append(menus, &menu)
 	}
 
 	return menus

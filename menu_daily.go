@@ -20,7 +20,7 @@ var allergenImages map[string]Allergen = map[string]Allergen{
 	"FISH_white.png":   Fish,
 }
 
-func ParseDailyMenu(feed *gofeed.Feed) Menu {
+func ParseDailyMenu(feed *gofeed.Feed) *Menu {
 	var menu Menu
 
 	menu.Title = feed.Title
@@ -30,7 +30,7 @@ func ParseDailyMenu(feed *gofeed.Feed) Menu {
 		menu.AddDish(parseDish(item))
 	}
 
-	return menu
+	return &menu
 }
 
 func getMenuDate(feed *gofeed.Feed) string {
