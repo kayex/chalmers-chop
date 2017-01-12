@@ -12,24 +12,20 @@ import (
 func main() {
 	defer timeTrack(time.Now())
 
-	conf := config.FromToml("config.toml")
-	rssURLs := conf.GetAllMenuURLs()
+	conf := config.FromFlags()
 
-	rs := make(chan *chalmers_chop.Restaurant, len(rssURLs))
+	rs := make(chan *chalmers_chop.Restaurant, len(conf.Restaurants))
 	var wg sync.WaitGroup
 
-	wg.Add(len(rssURLs))
+	wg.Add(len(conf.Restaurants))
 
-	for name, area := range conf.AreaConfigs {
-		for _, rss := range area.MenuURLs {
-			go func(area, rss string) {
-				defer wg.Done()
-				r := chalmers_chop.FetchFromRSS(rss)
-				r.Area = name
-				rs <- r
+	for _, rest := range conf.Restaurants {
+		go func(rss string) {
+			defer wg.Done()
+			r := chalmers_chop.FetchFromRSS(rss)
+			rs <- r
 
-			}(name, rss)
-		}
+		}(rest.MenuURL)
 	}
 
 	var restaurants []*chalmers_chop.Restaurant
@@ -60,7 +56,7 @@ func main() {
 	fmt.Printf("Dishes: %v\n", numDish)
 
 	json := toJson(restaurants)
-	export(json, conf.ExportConfig)
+	export(json, conf.Export)
 }
 
 type OutputJson struct {
@@ -82,6 +78,10 @@ func toJson(rest []*chalmers_chop.Restaurant) []byte {
 }
 
 func export(json []byte, conf config.ExportConfig) {
+	if conf.URL == "" {
+		return
+	}
+
 	exporter := chalmers_chop.NewPOSTExporter(conf.URL, conf.Token)
 	err := exporter.Export(json)
 

@@ -69,36 +69,21 @@ $ go build github.com/kayex/chalmers-chop/cmd/chop
 $ ./chop
 ```
 
-### Config
-The program needs a `config.toml` file in the same directory to run.
+### Exporting the menus as JSON
+By supplying the `url` command line argument, the menus are exported as JSON and transmitted to `url` via HTTP POST. A `token` parameter may optionally be provided for authentication purposes. It will be included in the `Authorization` request header.
 
-**config.toml**
-```toml
-[export]
-url = 'https://api.example.com'
-token = 'secret-token'
-
-[restaurants.johanneberg]
-rss = [
-    # One URL per restaurant
-    'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss'
-]
-
-[restaurants.lindholmen]
-rss = [
-    'http://intern.chalmerskonferens.se/view/restaurant/l-s-kitchen/Projektor.rss'
-]
+To export menus and POST as JSON
+```bash
+$ ./chop -url https://api.example.com/ -token my-secret-token
 ```
-### Export methods
 
-#### POST-request
-Sends a simple `POST`-request with the JSON encoded menu data as the body. The application requires the export target to properly reply with a valid `2XX` status code.
-
+**Request headers**
 ```http
 Content-Type: application/json
 Authorization: Token {token}
 ```
 
+**Request body**
 ```json
 {
   "restaurants": [
