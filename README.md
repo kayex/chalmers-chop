@@ -19,7 +19,7 @@ restaurant := chalmers_chop.FetchFromRSS(rss)
 name := restaurant.Name
 
 for _, d := range restaurant.TodaysMenu().Dishes {
-	fmt.Printf("%v (%v) - %v %v", d.Name, d.Contents, d.Price, d.Allergens)
+	fmt.Printf("%v (%v) - %v %v\n", d.Name, d.Contents, d.Price, d.Allergens)
 }
 ```
 
