@@ -57,7 +57,7 @@ type Restaurant struct {
 ```
 
 ## Standalone binary
-The standalone binary offers various ways of exporting the menu data as JSON. Currently the only supported export method is a POST-request, with an optional authentication header.
+The standalone binary offers various ways of exporting the menu data as JSON. Currently the only supported export method is a `POST`-request, with an optional authentication header.
 
 ###
 **Building**
@@ -85,7 +85,13 @@ rss = [
 ]
 ```
 
-### JSON structure
+### POST-request
+This is the structure of the `POST`-request being sent. The application requires the export target to properly reply with a valid `2XX` status code.
+
+```http
+Authorization: Token {token}
+```
+
 ```json
 {
   "restaurants": [
