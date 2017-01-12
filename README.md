@@ -123,23 +123,6 @@ Authorization: Token {token}
         }
       ]
     },
-    {
-      "name": "L's Kitchen",
-      "area": "lindholmen",
-      "menus": [
-        {
-          "title": "Meny Ls Kitchen - 2017-01-09",
-          "date": "2017-01-09",
-          "dishes": [
-            {  
-              "name":"Kött",
-              "contents":"Citron- & vitl\u00f6ksmarinerat kyckling, rostade rotfrukter, timjanssky",
-              "price":90
-            }
-          ]
-        }
-      ]
-    }
   ]
 }
 ```
