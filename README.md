@@ -81,7 +81,8 @@ token = 'secret-token'
 
 [restaurants.johanneberg]
 rss = [
-    'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss' # One URL per restaurant
+    # One URL per restaurant
+    'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss'
 ]
 
 [restaurants.lindholmen]
