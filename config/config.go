@@ -5,5 +5,5 @@ type RestaurantConfig struct {
 }
 
 type Config struct {
-	RestaurantConfig `toml:"restaurants"`
+	RestaurantConfig RestaurantConfig `toml:"restaurants"`
 }
