@@ -4,30 +4,16 @@ import (
 	"encoding/json"
 	"github.com/kayex/chalmers-chop"
 	"github.com/kayex/chalmers-chop/config"
-	"github.com/mmcdole/gofeed"
 	"io/ioutil"
 )
 
 func main() {
-	var rs []chalmers_chop.Restaurant
+	var rs []*chalmers_chop.Restaurant
 
 	conf := config.FromToml("config.toml")
 
-	for _, restConf := range conf.Restaurants {
-		var rest chalmers_chop.Restaurant
-
-		rest.Name = restConf.Name
-
-		fp := gofeed.NewParser()
-		dailyFeed, _ := fp.ParseURL(restConf.DailyMenuURL)
-		weeklyFeed, _ := fp.ParseURL(restConf.WeeklyMenuURL)
-
-		dailyMenu := chalmers_chop.ParseDailyFeed(dailyFeed)
-		weeklyMenus := chalmers_chop.ParseWeeklyFeed(weeklyFeed)
-
-		rest.Menus = append(rest.Menus, dailyMenu)
-		rest.Menus = append(rest.Menus, weeklyMenus...)
-
+	for _, rss := range conf.MenuURLs {
+		rest := chalmers_chop.FetchFromRSS(rss)
 		rs = append(rs, rest)
 	}
 
@@ -41,10 +27,10 @@ func main() {
 }
 
 type OutputJson struct {
-	Restaurants []chalmers_chop.Restaurant `json:"restaurants"`
+	Restaurants []*chalmers_chop.Restaurant `json:"restaurants"`
 }
 
-func toJson(rest []chalmers_chop.Restaurant) ([]byte, error) {
+func toJson(rest []*chalmers_chop.Restaurant) ([]byte, error) {
 	out := OutputJson{
 		Restaurants: rest,
 	}
