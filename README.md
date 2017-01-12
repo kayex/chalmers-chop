@@ -89,7 +89,7 @@ Authorization: Token {token}
   "restaurants": [
     {
       "name": "Kårrestaurangen",
-      "area": "johanneberg",
+      "area": "Johanneberg",
       "menus": [
         {
           "title": "Meny Kårrestaurangen - 2017-01-09",
@@ -111,7 +111,7 @@ Authorization: Token {token}
   ]
 }
 ```
-The `price` and `allergens` fields are optional, and may not be included depending on the completeness of the source data. The `area` field is mapped directly from the [restaurant.`area`] values in the config file.
+The `price` and `allergens` fields are optional, and may not be included depending on the completeness of the source data.
 
 # License
 MIT
