@@ -15,10 +15,3 @@ type Dish struct {
 	Price     int        `json:"price,omitempty"`
 	Allergens []Allergen `json:"allergens,omitempty"`
 }
-
-func NewDish(name, contents string) *Dish {
-	return &Dish{
-		Name:     name,
-		Contents: contents,
-	}
-}
