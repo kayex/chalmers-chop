@@ -59,7 +59,6 @@ type Restaurant struct {
 ## Standalone binary
 The standalone binary offers various ways of exporting the menu data as JSON. Currently the only supported export method is a `POST`-request, with an optional authentication header.
 
-###
 **Building**
 ```bash
 $ go build github.com/kayex/chalmers-chop/cmd/chop
@@ -90,11 +89,13 @@ rss = [
     'http://intern.chalmerskonferens.se/view/restaurant/l-s-kitchen/Projektor.rss'
 ]
 ```
+### Export types
 
-### POST-request
-This is the structure of the `POST`-request being sent. The application requires the export target to properly reply with a valid `2XX` status code.
+#### POST-request
+Sends a simple `POST`-request with the JSON encoded menu data as the body. The application requires the export target to properly reply with a valid `2XX` status code.
 
 ```http
+Content-Type: application/json
 Authorization: Token {token}
 ```
 
