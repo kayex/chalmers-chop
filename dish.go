@@ -13,7 +13,7 @@ type Dish struct {
 	Name      string     `json:"name"`
 	Contents  string     `json:"contents"`
 	Price     int        `json:"price,omitempty"`
-	Allergens []Allergen `json:"allergens"`
+	Allergens []Allergen `json:"allergens,omitempty"`
 }
 
 func NewDish(name, contents string) *Dish {
