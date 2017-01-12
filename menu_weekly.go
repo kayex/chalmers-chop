@@ -25,7 +25,7 @@ func ParseWeeklyMenu(feed *gofeed.Feed) []*Menu {
 /*
 	Finds the restaurant name
 
-	The restaurant name will be the entire contents of the <title>
+	The restaurant name is the entire contents of the <title>
 	tag, except for the five first characters ("Meny ")
 
 	For example:
@@ -47,7 +47,7 @@ func parseDate(item *gofeed.Item) string {
 }
 
 /*
-Searches the contents of the item <description> tag for dishes
+Searches the contents of the item <description> tag for dishes.
 
 The <description> tag contains a single <table> element, for example:
 
@@ -65,10 +65,10 @@ The <description> tag contains a single <table> element, for example:
 Each <tr> represents a single dish.
 Each dish has at least two <td>.
 
-The first <td> contains the dish name, surrounded by a <b> tag
-The second <td> contains the dish contents
+The first <td> contains the dish name, surrounded by a <b> tag.
+The second <td> contains the dish contents.
 
-Dish price and allergy information is not available in the source data
+Dish price and allergy information is not available in the source data.
 */
 func parseDishes(item *gofeed.Item) []Dish {
 	var dishes []Dish
