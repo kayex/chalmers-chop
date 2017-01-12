@@ -13,19 +13,23 @@ func main() {
 	defer timeTrack(time.Now())
 
 	conf := config.FromToml("config.toml")
-	rssURLs := conf.RestaurantConfig.MenuURLs
+	rssURLs := conf.GetAllMenuURLs()
 
 	rs := make(chan *chalmers_chop.Restaurant, len(rssURLs))
 	var wg sync.WaitGroup
 
 	wg.Add(len(rssURLs))
 
-	for _, rss := range conf.RestaurantConfig.MenuURLs {
-		go func(rss string) {
-			defer wg.Done()
-			rs <- chalmers_chop.FetchFromRSS(rss)
+	for name, area := range conf.AreaConfigs {
+		for _, rss := range area.MenuURLs {
+			go func(area, rss string) {
+				defer wg.Done()
+				r := chalmers_chop.FetchFromRSS(rss)
+				r.Area = name
+				rs <- r
 
-		}(rss)
+			}(name, rss)
+		}
 	}
 
 	var restaurants []*chalmers_chop.Restaurant

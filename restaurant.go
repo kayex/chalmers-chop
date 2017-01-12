@@ -2,6 +2,7 @@ package chalmers_chop
 
 type Restaurant struct {
 	Name  string `json:"name"`
+	Area  string `json:"area,omitempty"`
 	Menus []Menu `json:"menus"`
 }
 

@@ -1,10 +1,10 @@
 package chalmers_chop
 
 import (
-	"net/http"
 	"bytes"
-	"fmt"
 	"errors"
+	"fmt"
+	"net/http"
 )
 
 type Exporter interface {
@@ -12,13 +12,13 @@ type Exporter interface {
 }
 
 type POSTExporter struct {
-	url string
+	url   string
 	token string
 }
 
 func NewPOSTExporter(url, token string) *POSTExporter {
 	return &POSTExporter{
-		url: url,
+		url:   url,
 		token: token,
 	}
 }
@@ -37,7 +37,7 @@ func (e *POSTExporter) Export(json []byte) error {
 func postJson(json []byte, url, token string) *http.Response {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(json))
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Token " + token)
+	req.Header.Set("Authorization", "Token "+token)
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
