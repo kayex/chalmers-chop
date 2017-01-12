@@ -22,6 +22,23 @@ func ParseWeeklyMenu(feed *gofeed.Feed) []*Menu {
 	return menus
 }
 
+/*
+	Finds the restaurant name
+
+	The restaurant name will be the entire contents of the <title>
+	tag, except for the five first characters ("Meny ")
+
+	For example:
+
+	<title>Meny Kårrestaurangen</title>
+	            ^
+	            name starts here
+*/
+func parseRestaurantNameFromWeeklyFeed(feed *gofeed.Feed) string {
+	t := feed.Title
+	return string(t[5:])
+}
+
 func parseDate(item *gofeed.Item) string {
 	// Date is always the last 10 characters of the Title property in the format
 	// YYYY-mm-dd
