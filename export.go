@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/http/httputil"
 )
 
 type Exporter interface {
@@ -37,6 +38,7 @@ func (e *POSTExporter) Export(json []byte) error {
 func postJson(json []byte, url, token string) *http.Response {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(json))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", "chalmers-chop/"+packageVersion)
 
 	if token != "" {
 		req.Header.Set("Authorization", "Token "+token)
@@ -48,6 +50,14 @@ func postJson(json []byte, url, token string) *http.Response {
 		panic(err)
 	}
 	defer resp.Body.Close()
+
+	b, err := httputil.DumpResponse(resp, true)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(b[:]))
 
 	return resp
 }
