@@ -1,3 +1,3 @@
 package chalmers_chop
 
-var packageVersion string = "0.1.8"
+var packageVersion string = "1.0.0"
