@@ -70,20 +70,22 @@ $ ./chop
 ```
 
 ### Exporting the menus as JSON
-By supplying the `url` command line argument, the menus are exported as JSON and transmitted to `url` via HTTP POST. A `token` parameter may optionally be provided for authentication purposes. It will be included in the `Authorization` request header.
+By supplying the `url` command line argument, the menus are exported as JSON and transmitted to `url` via HTTP POST.
 
-To export menus and POST as JSON
 ```bash
 $ ./chop -url https://api.example.com/ -token my-secret-token
 ```
+A `token` parameter may optionally be provided for authentication purposes. It will be included in the `Authorization` request header.
 
-**Request headers**
+#### Request format
+
+**Headers**
 ```http
 Content-Type: application/json
 Authorization: Token {token}
 ```
 
-**Request body**
+**Body**
 ```json
 {
   "restaurants": [
