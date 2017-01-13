@@ -82,7 +82,11 @@ A `token` parameter may optionally be provided for authentication purposes. It w
 **Headers**
 ```http
 Content-Type: application/json
-Authorization: Token {token}
+```
+
+If the `-token` argument is provided, the following header will also be sent
+```http
+Authorization: Token my-secret-token
 ```
 
 **Body**

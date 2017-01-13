@@ -37,7 +37,10 @@ func (e *POSTExporter) Export(json []byte) error {
 func postJson(json []byte, url, token string) *http.Response {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(json))
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Token "+token)
+
+	if token != "" {
+		req.Header.Set("Authorization", "Token "+token)
+	}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
