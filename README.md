@@ -77,9 +77,9 @@ $ ./chop -url https://api.example.com/ -token my-secret-token
 ```
 A `token` parameter may optionally be provided for authentication purposes.
 
-#### Request format
+### Request format
 
-Headers
+**Headers**
 ```http
 Content-Type: application/json
 ```
@@ -89,7 +89,7 @@ If the `-token` argument is provided, the following header will also be sent
 Authorization: Token my-secret-token
 ```
 
-Body
+**Body**
 ```json
 {
   "restaurants": [
