@@ -55,9 +55,9 @@ type Restaurant struct {
 ```
 
 ## Standalone binary
-The standalone binary comes pre-loaded with a curated list of RSS feeds, which allows it to be used without any further configuration. The fetch results can be exported as JSON and transmitted to a remote server using HTTP POST.
+The standalone binary comes pre-loaded with a curated list of menu RSS sources, which allows it to be used without any further configuration. The fetch results can be exported as JSON and transmitted to a remote server using HTTP POST.
 
-The full list of RSS menu feeds that is used can be found [here](https://github.com/kayex/chalmers-chop/blob/master/config/static.go).
+A full list over the RSS sources bundled with the standalone binary can be found [here](https://github.com/kayex/chalmers-chop/blob/master/config/static.go).
 
 **Building**
 ```bash
