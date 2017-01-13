@@ -4,7 +4,7 @@ RSS food menu parser for restaurants near Chalmer's University. Written in Go.
 **chop** `[noun]` *An individual cut or portion of meat, as mutton, lamb, veal, or pork, usually one containing a rib.*
 
 # Usage
-Chalmer's Chop exposes both a Go API, as well as a standalone binary for fetching the menus and outputting them as JSON.
+Chalmer's Chop exposes a simple Go API, in addition a standalone binary for fetching the menus and outputting them as JSON.
 
 ## Go API
 ```go
