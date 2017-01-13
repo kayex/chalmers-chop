@@ -75,7 +75,7 @@ By supplying the `url` command line argument, the menus are exported as JSON and
 ```bash
 $ ./chop -url https://api.example.com/ -token my-secret-token
 ```
-A `token` parameter may optionally be provided for authentication purposes. It will be included in the `Authorization` request header.
+A `token` parameter may optionally be provided for authentication purposes.
 
 #### Request format
 
