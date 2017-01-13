@@ -6,8 +6,6 @@ RSS food menu parser for restaurants near Chalmer's University. Written in Go.
 # Usage
 Chalmer's Chop exposes both a binary for outputting menus as JSON as well as a Go API. Fetches both weekly menus and more detailed daily menus.
 
-A full list of the RSS feeds used to fetch menus can be found [here](https://github.com/kayex/chalmers-chop/blob/master/config/static.go).
-
 ## Go API
 ```go
 import (
@@ -58,6 +56,8 @@ type Restaurant struct {
 
 ## Standalone binary
 The standalone binary comes pre-loaded with a curated list of RSS feeds, which allows it to be used without any further configuration. The fetch results can be exported as JSON and transmitted to a remote server using HTTP POST.
+
+The full list of RSS menu feeds that is used can be found [here](https://github.com/kayex/chalmers-chop/blob/master/config/static.go).
 
 **Building**
 ```bash
