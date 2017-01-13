@@ -80,7 +80,11 @@ $ ./chop -url https://api.example.com/ -token my-secret-token
 **Request headers**
 ```http
 Content-Type: application/json
-Authorization: Token {token}
+```
+
+If the `-token` argument is provided, the following header will also be sent
+```http
+Authorization: Token my-secret-token
 ```
 
 **Request body**
