@@ -2,6 +2,9 @@ package config
 
 import "flag"
 
+/*
+	Gets config from command line arguments
+*/
 func FromFlags() *Config {
 	var expConf ExportConfig
 
