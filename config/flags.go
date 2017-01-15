@@ -9,7 +9,7 @@ func FromFlags() *Config {
 	var expConf ExportConfig
 
 	flag.StringVar(&expConf.URL, "url", "", "Export target")
-	flag.StringVar(&expConf.Token, "token", "", "Authentication token")
+	flag.StringVar(&expConf.Token, "token", "", "Export authentication token")
 	flag.Parse()
 
 	return &Config{
