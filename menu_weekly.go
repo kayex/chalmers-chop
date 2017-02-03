@@ -26,7 +26,7 @@ func ParseWeeklyMenu(feed *gofeed.Feed) []*Menu {
 	Finds the restaurant name
 
 	The restaurant name is the entire contents of the <title>
-	tag, except for the five first characters ("Meny ")
+	tag, excluding the five first characters ("Meny ")
 
 	For example:
 
