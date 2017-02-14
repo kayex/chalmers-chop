@@ -1,4 +1,6 @@
 # chalmers-chop 🍖
+![CI Build status](https://travis-ci.org/kayex/chalmers-chop.svg?branch=develop)
+
 RSS food menu parser for restaurants near Chalmer's University. Written in Go.
 
 **chop** `[noun]` *An individual cut or portion of meat, as mutton, lamb, veal, or pork, usually one containing a rib.*
