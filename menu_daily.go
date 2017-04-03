@@ -59,18 +59,15 @@ func parseMenuDate(feed *gofeed.Feed) (string, error) {
 	return string(t[len(t)-10:]), nil
 }
 
-/*
-Parses a dish from an item
-
-The dish contents, price, and allergy information is contained in a CDATA tag inside the <description> tag. For example:
-
-<description>
-	<![CDATA[Beef, wheat bread, french fries@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
-		 ^                               ^                                                                                 ^
-		 contents                        price                                                                             allergen
- </description>
-
-*/
+// parseDish parses a dish from a feed item.
+//
+// The dish contents, price, and allergy information is contained in a CDATA tag inside the <description> tag. For example:
+//
+// <description>
+// <![CDATA[Beef, wheat bread, french fries@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
+//          ^                               ^                                                                                 ^
+//          contents                        price                                                                             allergen (Gluten)
+//</description>
 func parseDish(item *gofeed.Item) Dish {
 	var dish Dish
 
