@@ -75,7 +75,7 @@ $ ./chop
 By supplying the `url` command line argument, the menus are exported as JSON and transmitted to `url` via HTTP POST.
 
 ```bash
-$ ./chop -url https://api.example.com/ -token my-secret-token
+$ ./chop -url https://api.example.com/ -token your-token-here
 ```
 A `token` parameter may optionally be provided for authentication purposes.
 
