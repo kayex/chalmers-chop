@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	defer timeTrack(time.Now())
+	defer trackExeTime(time.Now())
 
 	conf := config.FromFlags()
 
@@ -90,7 +90,7 @@ func export(json []byte, conf config.ExportConfig) {
 	}
 }
 
-func timeTrack(start time.Time) {
+func trackExeTime(start time.Time) {
 	elapsed := time.Since(start)
 	fmt.Printf("Completed in %s\n", elapsed)
 }
