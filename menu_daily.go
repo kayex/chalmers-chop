@@ -73,7 +73,7 @@ func parseDish(item *gofeed.Item) Dish {
 
 	dish.Name = item.Title
 
-	desc := trimCDATA(item.Description)
+	desc := trimCDATATags(item.Description)
 
 	dish.Contents = parseContents(desc)
 	dish.Price = parsePrice(desc)
@@ -126,7 +126,7 @@ func parseAllergens(desc string) []Allergen {
 	return al
 }
 
-func trimCDATA(text string) string {
+func trimCDATATags(text string) string {
 	if !strings.HasPrefix(text, "<![CDATA") || !strings.HasSuffix(text, "]]>") {
 		return text
 	}
