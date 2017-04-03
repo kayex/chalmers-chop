@@ -11,12 +11,12 @@ Chalmer's Chop exposes a simple Go API, as well a standalone binary for fetching
 ## Go API
 ```go
 import (
-	"github.com/kayex/chalmers-chop"
 	"fmt"
+	"github.com/kayex/chalmers-chop"
 )
 
-rss := "http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss"
-restaurant := chalmers_chop.FetchFromRSS(rss)
+feed := "http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss"
+restaurant := chalmers_chop.FetchFromRSS(feed)
 
 fmt.Println(restaurant.Name)
 
@@ -75,7 +75,7 @@ $ ./chop
 By supplying the `url` command line argument, the menus are exported as JSON and transmitted to `url` via HTTP POST.
 
 ```bash
-$ ./chop -url https://api.example.com/ -token my-secret-token
+$ ./chop -url https://api.example.com/ -token your-token-here
 ```
 A `token` parameter may optionally be provided for authentication purposes.
 
@@ -88,7 +88,7 @@ Content-Type: application/json
 
 If the `token` argument is provided, the following header will also be sent
 ```http
-Authorization: Token my-secret-token
+Authorization: Token your-token-here
 ```
 
 **Body**
@@ -119,7 +119,7 @@ Authorization: Token my-secret-token
   ]
 }
 ```
-The `price` and `allergens` fields are optional, and may not be included depending on the completeness of the source data.
+The `price` and `allergens` fields are optional, and may not be present depending on the completeness of the source data.
 
 # License
 MIT
