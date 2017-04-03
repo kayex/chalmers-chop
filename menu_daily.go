@@ -134,6 +134,10 @@ func trimCDATA(text string) string {
 	return strings.TrimSuffix(strings.TrimPrefix(text, "<![CDATA"), "]]>")
 }
 
+// beforeSpace returns a substring of str, starting at the beginning of str
+// and ending right before the first occurrence of a space character (0x20).
+//
+// Returns str unmodified if str does not contain any spaces.
 func beforeSpace(str string) string {
 	indexFunc := func(r rune) bool {
 		return r == ' '
