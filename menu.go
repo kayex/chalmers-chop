@@ -22,8 +22,8 @@ func (r *Restaurant) TodaysMenu() *Menu {
 	return menu
 }
 
-func (r *Restaurant) findMenuByTime(time time.Time) (bool, *Menu) {
-	date := time.Format("2006-01-02")
+func (r *Restaurant) findMenuByTime(t time.Time) (bool, *Menu) {
+	date := t.Format("2006-01-02")
 
 	for _, m := range r.Menus {
 		if m.Date == date {
