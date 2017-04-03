@@ -44,10 +44,11 @@ func getMenuDate(feed *gofeed.Feed) string {
 	return d
 }
 
-/*
-The menu date is retrieved by parsing the <guid> and fetching the last 10 runes, which
-will always be a date on the format YYYY-mm-dd
-*/
+
+// parseMenuDate parses the date of a menu.
+//
+// The menu date is retrieved by parsing the contents of the <guid> tag and fetching
+// the last 10 runes, which will always be a date on the format YYYY-mm-dd
 func parseMenuDate(feed *gofeed.Feed) (string, error) {
 	if len(feed.Items) == 0 {
 		return "", errors.New("Could not find menu date")
