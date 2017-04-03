@@ -37,23 +37,24 @@ func main() {
 		restaurants = append(restaurants, r)
 	}
 
-	numRest := 0
-	numMenu := 0
-	numDish := 0
+	stats := struct{
+		Restaurants int
+		Menus int
+		Dishes int
+	}{}
 
-	for _, restu := range restaurants {
-		numRest++
-		numMenu += len(restu.Menus)
+	for _, r := range restaurants {
+		stats.Restaurants++
+		stats.Menus += len(r.Menus)
 
-		for _, menu := range restu.Menus {
-			numMenu++
-			numDish += len(menu.Dishes)
+		for _, m := range r.Menus {
+			stats.Dishes += len(m.Dishes)
 		}
 	}
 
-	fmt.Printf("Restaurants: %v\n", numRest)
-	fmt.Printf("Menus: %v\n", numMenu)
-	fmt.Printf("Dishes: %v\n", numDish)
+	fmt.Printf("Restaurants: %v\n", stats.Restaurants)
+	fmt.Printf("Menus: %v\n", stats.Menus)
+	fmt.Printf("Dishes: %v\n", stats.Dishes)
 
 	json := toJson(restaurants)
 	export(json, conf.Export)
