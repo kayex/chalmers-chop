@@ -1,12 +1,12 @@
-# chalmers-chop
+# chalmers-chop 🍖
+![CI Build status](https://travis-ci.org/kayex/chalmers-chop.svg?branch=develop)
+
 RSS food menu parser for restaurants near Chalmer's University. Written in Go.
 
 **chop** `[noun]` *An individual cut or portion of meat, as mutton, lamb, veal, or pork, usually one containing a rib.*
 
 # Usage
-Chalmer's Chop exposes both a binary for outputting menus as JSON as well as a Go API. Fetches both weekly menus and more detailed daily menus.
-
-A full list of restaurant RSS feeds can be found [here](http://chalmerskonferens.se/en/rss-2/).
+Chalmer's Chop exposes a simple Go API, as well a standalone binary for fetching the menus and transmitting them as JSON via HTTP.
 
 ## Go API
 ```go
@@ -57,7 +57,9 @@ type Restaurant struct {
 ```
 
 ## Standalone binary
-The standalone binary offers various ways of exporting the menu data as JSON. Currently the only supported export method is a `POST`-request, with an optional authentication header.
+The standalone binary comes pre-loaded with a curated list of RSS sources, which allows it to be used without any additional configuration. The fetch results can be exported as JSON and transmitted to a remote server using HTTP POST.
+
+A full list over the RSS sources bundled with the standalone binary can be found [here](https://github.com/kayex/chalmers-chop/blob/master/config/static.go).
 
 **Building**
 ```bash
@@ -70,24 +72,26 @@ $ ./chop
 ```
 
 ### Exporting the menus as JSON
-By supplying the `url` command line argument, the menus are exported as JSON and transmitted to `url` via HTTP POST. A `token` parameter may optionally be provided for authentication purposes. It will be included in the `Authorization` request header.
+By supplying the `url` command line argument, the menus are exported as JSON and transmitted to `url` via HTTP POST.
 
-To export menus and POST as JSON
 ```bash
 $ ./chop -url https://api.example.com/ -token my-secret-token
 ```
+A `token` parameter may optionally be provided for authentication purposes.
 
-**Request headers**
+### Request format
+
+**Headers**
 ```http
 Content-Type: application/json
 ```
 
-If the `token` argument is provided, the following header is also sent
+If the `token` argument is provided, the following header will also be sent
 ```http
 Authorization: Token my-secret-token
 ```
 
-**Request body**
+**Body**
 ```json
 {
   "restaurants": [
@@ -100,9 +104,9 @@ Authorization: Token my-secret-token
           "date": "2017-01-09",
           "dishes": [
             {  
-              "name":"Classic Sallad",
-              "contents":"Marinerad Fetaost, olivsallad, vitlöksbröd",
-              "price":80,
+              "name": "Classic Sallad",
+              "contents": "Marinerad Fetaost, olivsallad, vitlöksbröd",
+              "price": 80,
               "allergens": [  
                 "lactose",
                 "gluten"
@@ -111,7 +115,7 @@ Authorization: Token my-secret-token
           ]
         }
       ]
-    },
+    }
   ]
 }
 ```
