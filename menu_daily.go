@@ -82,7 +82,9 @@ func parseDish(item *gofeed.Item) Dish {
 	return dish
 }
 
-// The dish contents is all text content of the <description> tag leading up to the @ sign
+// parseContents parses a dish's contents from its description text.
+//
+// The dish contents is all text content leading up to the @ sign.
 func parseContents(desc string) string {
 	return strings.Split(desc, "@")[0]
 }
