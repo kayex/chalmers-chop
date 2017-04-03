@@ -6,20 +6,17 @@ type Restaurant struct {
 	Menus []Menu `json:"menus"`
 }
 
-/*
-	Add a menu to the restaurant. Adding a menu with the Date field
-	set to the same value as that of an existing menu in the slice, will
-	replace the existing menu with the new one.
-*/
+// addMenus adds one or more menus to a restaurant.
+//
+// Adding a menu with the same date as an existing menu will replace the
+// existing menu with the new one.
 func (r *Restaurant) addMenus(menus ...*Menu) {
-	// If a menu with the same date already exists, overwrite it
+Adding:
 	for _, menu := range menus {
-		for i, m := range r.Menus {
-			if m.Date == menu.Date {
-				r.Menus[i] = r.Menus[len(r.Menus)-1]
-				r.Menus = r.Menus[:len(r.Menus)-1]
-
-				break
+		for i, existing := range r.Menus {
+			if menu.Date == existing.Date {
+				r.Menus[i] = *menu
+				continue Adding
 			}
 		}
 
