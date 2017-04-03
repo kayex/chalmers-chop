@@ -34,15 +34,10 @@ func ParseDailyMenu(feed *gofeed.Feed) *Menu {
 }
 
 func getMenuDate(feed *gofeed.Feed) string {
-	/*
-		We could assume that all "daily menus" should have today's date and generate it ourselves,
-		however, to avoid trouble with timezones and other types of clock skew we prefer fetching
-		it from the feed, if possible.
-	*/
 	d, err := parseMenuDate(feed)
 
-	// Default to today's date
 	if err != nil {
+		// Default to today's date
 		return time.Now().Format("2006-01-02")
 	}
 
