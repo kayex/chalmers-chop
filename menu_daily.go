@@ -143,10 +143,10 @@ func beforeSpace(str string) string {
 		return r == ' '
 	}
 
-	value := strings.IndexFunc(str, indexFunc)
+	i := strings.IndexFunc(str, indexFunc)
 
-	if value >= 0 && value <= len(str) {
-		return str[:value]
+	if i >= 0 && i <= len(str) {
+		return str[:i]
 	}
 
 	return str
