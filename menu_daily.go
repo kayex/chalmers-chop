@@ -89,7 +89,10 @@ func parseContents(desc string) string {
 	return strings.Split(desc, "@")[0]
 }
 
-// The dish price is all text content of the <description> tag following the first @ sign, up until the first space sign
+// parsePrice parses the price of a dish from its description text.
+//
+// The dish price is all text content following the first @ sign leading up to
+// the first space sign.
 func parsePrice(desc string) int {
 	afterAtSign := strings.Split(desc, "@")[1]
 	priceText := beforeSpace(afterAtSign)
