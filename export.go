@@ -27,7 +27,11 @@ func NewPOSTExporter(url, token string) *POSTExporter {
 func (e *POSTExporter) Export(json []byte) error {
 	resp := postJson(json, e.url, e.token)
 
-	if !(resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusCreated || resp.StatusCode == http.StatusNoContent) {
+	ok := resp.StatusCode == http.StatusOK ||
+		resp.StatusCode == http.StatusCreated ||
+		resp.StatusCode == http.StatusNoContent
+
+	if !ok {
 		msg := fmt.Sprintf("POST Export failed: %v (%v)", resp.Status, resp.Body)
 		return errors.New(msg)
 	}
