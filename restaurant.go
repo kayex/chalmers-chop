@@ -14,6 +14,22 @@ type Menu struct {
 	Dishes []Dish `json:"dishes"`
 }
 
+type Dish struct {
+	Name      string     `json:"name"`
+	Contents  string     `json:"contents"`
+	Price     int        `json:"price,omitempty"`
+	Allergens []Allergen `json:"allergens,omitempty"`
+}
+
+type Allergen string
+
+const (
+	Gluten  Allergen = "gluten"
+	Egg              = "egg"
+	Lactose          = "lactose"
+	Fish             = "fish"
+)
+
 func (m *Menu) AddDish(dish Dish) {
 	m.Dishes = append(m.Dishes, dish)
 }
