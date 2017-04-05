@@ -47,8 +47,9 @@ func getMenuDate(feed *gofeed.Feed) string {
 
 // parseMenuDate parses the date of a menu.
 //
-// The menu date is retrieved by parsing the contents of the <guid> tag and fetching
-// the last 10 runes, which will always be a date on the format YYYY-mm-dd
+// The menu date is retrieved by parsing the contents of the <guid> tag
+// and fetching the last 10 runes, which will always be a date on the format
+// YYYY-mm-dd
 func parseMenuDate(feed *gofeed.Feed) (string, error) {
 	if len(feed.Items) == 0 {
 		return "", errors.New("Could not find menu date")
@@ -61,7 +62,8 @@ func parseMenuDate(feed *gofeed.Feed) (string, error) {
 
 // parseDish parses a dish from a feed item.
 //
-// The dish contents, price, and allergy information is contained in a CDATA tag inside the <description> tag. For example:
+// The dish contents, price, and allergy information is contained in a CDATA tag
+// inside the <description> tag. For example:
 //
 // <description>
 // <![CDATA[Beef, wheat bread, french fries@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
@@ -111,7 +113,8 @@ func parsePrice(desc string) int {
 // The dish allergens can be determined by searching the description text for
 // occurrences of image sources defined in allergenImages.
 //
-// For example, the following dish description indicates that the dish contains the Gluten allergen ("gluten-white.png"):
+// For example, the following dish description indicates that the dish
+// contains the Gluten allergen ("gluten-white.png"):
 //
 // <![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
 func parseAllergens(desc string) []Allergen {
@@ -127,7 +130,10 @@ func parseAllergens(desc string) []Allergen {
 }
 
 func trimCDATATags(text string) string {
-	if !strings.HasPrefix(text, "<![CDATA") || !strings.HasSuffix(text, "]]>") {
+
+
+	if !strings.HasPrefix(text, "<![CDATA") ||
+		!strings.HasSuffix(text, "]]>") {
 		return text
 	}
 

@@ -38,9 +38,11 @@ func parseRestaurantNameFromWeeklyFeed(feed *gofeed.Feed) string {
 	return string(t[5:])
 }
 
+// parseDate returns the menu date from a weekly menu feed item.
+//
+// The date is the last 10 characters of the item Title property on the format
+// YYYY-mm-dd
 func parseDate(item *gofeed.Item) string {
-	// Date is always the last 10 characters of the Title property in the format
-	// YYYY-mm-dd
 	t := item.Title
 	return string(t[len(t)-10:])
 }
