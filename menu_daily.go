@@ -130,8 +130,6 @@ func parseAllergens(desc string) []Allergen {
 }
 
 func trimCDATATags(text string) string {
-
-
 	if !strings.HasPrefix(text, "<![CDATA") ||
 		!strings.HasSuffix(text, "]]>") {
 		return text
