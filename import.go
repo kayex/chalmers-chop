@@ -2,12 +2,12 @@ package chalmers_chop
 
 import "github.com/mmcdole/gofeed"
 
-func FetchFromRSS(rssURL string) *Restaurant {
+func FetchFromRSS(url string) *Restaurant {
 	var rest Restaurant
 
 	fp := gofeed.NewParser()
-	dailyFeed, _ := fp.ParseURL(dailyMenu(rssURL))
-	weeklyFeed, _ := fp.ParseURL(weeklyMenu(rssURL))
+	dailyFeed, _ := fp.ParseURL(dailyMenuURL(url))
+	weeklyFeed, _ := fp.ParseURL(weeklyMenuURL(url))
 
 	rest.Name = parseRestaurantNameFromWeeklyFeed(weeklyFeed)
 
@@ -21,12 +21,10 @@ func FetchFromRSS(rssURL string) *Restaurant {
 	return &rest
 }
 
-// Get the daily menu RSS URL
-func dailyMenu(rssURL string) string {
-	return rssURL + "?today=true"
+func dailyMenuURL(feedURL string) string {
+	return feedURL + "?today=true"
 }
 
-// Get the weekly menu RSS URL
-func weeklyMenu(rssURL string) string {
-	return rssURL
+func weeklyMenuURL(feedURL string) string {
+	return feedURL
 }
