@@ -24,7 +24,13 @@ func ParseDailyMenu(feed *gofeed.Feed) *Menu {
 	var menu Menu
 
 	menu.Title = feed.Title
-	menu.Date = getMenuDate(feed)
+
+	d, err := parseMenuDate(feed)
+	if err != nil {
+		// Default to today's date
+		d = time.Now().Format("2006-01-02")
+	}
+	menu.Date = d
 
 	for _, item := range feed.Items {
 		menu.AddDish(parseDish(item))
@@ -32,18 +38,6 @@ func ParseDailyMenu(feed *gofeed.Feed) *Menu {
 
 	return &menu
 }
-
-func getMenuDate(feed *gofeed.Feed) string {
-	d, err := parseMenuDate(feed)
-
-	if err != nil {
-		// Default to today's date
-		return time.Now().Format("2006-01-02")
-	}
-
-	return d
-}
-
 
 // parseMenuDate parses the date of a menu.
 //
