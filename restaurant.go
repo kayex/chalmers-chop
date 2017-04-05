@@ -1,9 +1,21 @@
 package chalmers_chop
 
+import "time"
+
 type Restaurant struct {
 	Name  string `json:"name"`
 	Area  string `json:"area,omitempty"`
 	Menus []Menu `json:"menus"`
+}
+
+type Menu struct {
+	Title  string `json:"title"`
+	Date   string `json:"date"`
+	Dishes []Dish `json:"dishes"`
+}
+
+func (m *Menu) AddDish(dish Dish) {
+	m.Dishes = append(m.Dishes, dish)
 }
 
 // addMenus adds one or more menus to a restaurant.
@@ -22,4 +34,26 @@ Adding:
 
 		r.Menus = append(r.Menus, *menu)
 	}
+}
+
+func (r *Restaurant) TodaysMenu() *Menu {
+	found, menu := r.findMenuByTime(time.Now())
+
+	if !found {
+		return nil
+	}
+
+	return menu
+}
+
+func (r *Restaurant) findMenuByTime(t time.Time) (bool, *Menu) {
+	date := t.Format("2006-01-02")
+
+	for _, m := range r.Menus {
+		if m.Date == date {
+			return true, &m
+		}
+	}
+
+	return false, nil
 }
