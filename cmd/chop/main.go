@@ -20,9 +20,9 @@ func main() {
 	wg.Add(len(conf.Restaurants))
 
 	for _, rest := range conf.Restaurants {
-		go func(rss string) {
+		go func(url string) {
 			defer wg.Done()
-			r := chalmers_chop.FetchFromRSS(rss)
+			r := chalmers_chop.FetchFromRSS(url)
 			rs <- r
 
 		}(rest.MenuURL)
@@ -37,10 +37,10 @@ func main() {
 		restaurants = append(restaurants, r)
 	}
 
-	stats := struct{
+	stats := struct {
 		Restaurants int
-		Menus int
-		Dishes int
+		Menus       int
+		Dishes      int
 	}{}
 
 	for _, r := range restaurants {

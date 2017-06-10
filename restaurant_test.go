@@ -1,14 +1,14 @@
 package chalmers_chop
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func TestRestaurant_addMenus(t *testing.T) {
-	cases := []struct{
-		r Restaurant
-		m Menu
+	cases := []struct {
+		r   Restaurant
+		m   Menu
 		exp Restaurant
 	}{
 		{
@@ -16,19 +16,19 @@ func TestRestaurant_addMenus(t *testing.T) {
 				Menus: []Menu{
 					Menu{
 						Title: "Old Menu",
-						Date: "2017-01-02",
+						Date:  "2017-01-02",
 					},
 				},
 			},
 			m: Menu{
 				Title: "New Menu",
-				Date: "2017-01-02",
+				Date:  "2017-01-02",
 			},
 			exp: Restaurant{
 				Menus: []Menu{
 					Menu{
 						Title: "New Menu",
-						Date: "2017-01-02",
+						Date:  "2017-01-02",
 					},
 				},
 			},

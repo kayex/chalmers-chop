@@ -2,10 +2,11 @@ package chalmers_chop
 
 import (
 	"errors"
-	"github.com/mmcdole/gofeed"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/mmcdole/gofeed"
 )
 
 // Defines the mapping between <img> sources and allergens
