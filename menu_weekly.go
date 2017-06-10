@@ -22,54 +22,52 @@ func ParseWeeklyMenu(feed *gofeed.Feed) []*Menu {
 	return menus
 }
 
-/*
-	Finds the restaurant name
-
-	The restaurant name is the entire contents of the <title>
-	tag, except for the five first characters ("Meny ")
-
-	For example:
-
-	<title>Meny Kårrestaurangen</title>
-	            ^
-	            name starts here
-*/
+// parseRestaurantNameFromWeeklyFeed finds the name of the restaurant from
+// a weekly menu feed.
+//
+// The restaurant name is the entire contents of the <title>
+// tag, excluding the five first characters.
+//
+// For example:
+//
+// <title>Meny Kårrestaurangen</title>
+//             ^
+//             name starts here
 func parseRestaurantNameFromWeeklyFeed(feed *gofeed.Feed) string {
 	t := feed.Title
 	return string(t[5:])
 }
 
+// parseDate returns the menu date from a weekly menu feed item.
+//
+// The date is the last 10 characters of the item Title property on the format
+// YYYY-mm-dd
 func parseDate(item *gofeed.Item) string {
-	// Date is always the last 10 characters of the Title property in the format
-	// YYYY-mm-dd
 	t := item.Title
 	return string(t[len(t)-10:])
 }
 
-/*
-Searches the contents of the item <description> tag for dishes.
-
-The <description> tag contains a single <table> element, for example:
-
-<table>
-  <tr>
-    <td>
-      <b>Hamburger of the Day</b>
-    </td>
-    <td>
-      Beef, wheat bread, french fries
-    </td>
-  </tr>
-</table>
-
-Each <tr> represents a single dish.
-Each dish has at least two <td>.
-
-The first <td> contains the dish name, surrounded by a <b> tag.
-The second <td> contains the dish contents.
-
-Dish price and allergy information is not available in the source data.
-*/
+// parseDishes parses all dish items from a weekly menu feed.
+//
+// The item <description> tag contains a single <table> element, for example:
+//
+// <table>
+//   <tr>
+//     <td>
+//       <b>Hamburger of the Day</b>
+//     </td>
+//     <td>
+//       Beef, wheat bread, french fries
+//     </td>
+//   </tr>
+// </table>
+//
+// Each <tr> represents a single dish, and has at least two <td> elements.
+//
+// The first <td> contains the dish name, surrounded by a <b> tag.
+// The second <td> contains the dish contents.
+//
+// Dish price and allergy information is not available in the weekly menu feed.
 func parseDishes(item *gofeed.Item) []Dish {
 	var dishes []Dish
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(item.Description))

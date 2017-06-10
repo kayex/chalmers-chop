@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	defer timeTrack(time.Now())
+	defer trackExeTime(time.Now())
 
 	conf := config.FromFlags()
 
@@ -20,9 +20,9 @@ func main() {
 	wg.Add(len(conf.Restaurants))
 
 	for _, rest := range conf.Restaurants {
-		go func(rss string) {
+		go func(url string) {
 			defer wg.Done()
-			r := chalmers_chop.FetchFromRSS(rss)
+			r := chalmers_chop.FetchFromRSS(url)
 			rs <- r
 
 		}(rest.MenuURL)
@@ -37,23 +37,24 @@ func main() {
 		restaurants = append(restaurants, r)
 	}
 
-	numRest := 0
-	numMenu := 0
-	numDish := 0
+	stats := struct {
+		Restaurants int
+		Menus       int
+		Dishes      int
+	}{}
 
-	for _, restu := range restaurants {
-		numRest++
-		numMenu += len(restu.Menus)
+	for _, r := range restaurants {
+		stats.Restaurants++
+		stats.Menus += len(r.Menus)
 
-		for _, menu := range restu.Menus {
-			numMenu++
-			numDish += len(menu.Dishes)
+		for _, m := range r.Menus {
+			stats.Dishes += len(m.Dishes)
 		}
 	}
 
-	fmt.Printf("Restaurants: %v\n", numRest)
-	fmt.Printf("Menus: %v\n", numMenu)
-	fmt.Printf("Dishes: %v\n", numDish)
+	fmt.Printf("Restaurants: %v\n", stats.Restaurants)
+	fmt.Printf("Menus: %v\n", stats.Menus)
+	fmt.Printf("Dishes: %v\n", stats.Dishes)
 
 	json := toJson(restaurants)
 	export(json, conf.Export)
@@ -90,7 +91,7 @@ func export(json []byte, conf config.ExportConfig) {
 	}
 }
 
-func timeTrack(start time.Time) {
+func trackExeTime(start time.Time) {
 	elapsed := time.Since(start)
 	fmt.Printf("Completed in %s\n", elapsed)
 }

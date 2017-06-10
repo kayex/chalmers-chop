@@ -2,10 +2,11 @@ package chalmers_chop
 
 import (
 	"errors"
-	"github.com/mmcdole/gofeed"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/mmcdole/gofeed"
 )
 
 // Defines the mapping between <img> sources and allergens
@@ -24,7 +25,13 @@ func ParseDailyMenu(feed *gofeed.Feed) *Menu {
 	var menu Menu
 
 	menu.Title = feed.Title
-	menu.Date = getMenuDate(feed)
+
+	d, err := parseMenuDate(feed)
+	if err != nil {
+		// Default to today's date
+		d = time.Now().Format("2006-01-02")
+	}
+	menu.Date = d
 
 	for _, item := range feed.Items {
 		menu.AddDish(parseDish(item))
@@ -33,26 +40,11 @@ func ParseDailyMenu(feed *gofeed.Feed) *Menu {
 	return &menu
 }
 
-func getMenuDate(feed *gofeed.Feed) string {
-	/*
-		We could assume that all "daily menus" should have today's date and generate it ourselves,
-		however, to avoid trouble with timezones and other types of clock skew we prefer fetching
-		it from the feed, if possible.
-	*/
-	d, err := parseMenuDate(feed)
-
-	// Default to today's date
-	if err != nil {
-		return time.Now().Format("2006-01-02")
-	}
-
-	return d
-}
-
-/*
-The menu date is retrieved by parsing the <guid> and fetching the last 10 runes, which
-will always be a date on the format YYYY-mm-dd
-*/
+// parseMenuDate parses the date of a menu.
+//
+// The menu date is retrieved by parsing the contents of the <guid> tag
+// and fetching the last 10 runes, which will always be a date on the format
+// YYYY-mm-dd
 func parseMenuDate(feed *gofeed.Feed) (string, error) {
 	if len(feed.Items) == 0 {
 		return "", errors.New("Could not find menu date")
@@ -63,24 +55,22 @@ func parseMenuDate(feed *gofeed.Feed) (string, error) {
 	return string(t[len(t)-10:]), nil
 }
 
-/*
-Parses a dish from an item
-
-The dish contents, price, and allergy information is contained in a CDATA tag inside the <description> tag. For example:
-
-<description>
-	<![CDATA[Beef, wheat bread, french fries@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
-		 ^                               ^                                                                                 ^
-		 contents                        price                                                                             allergen
- </description>
-
-*/
+// parseDish parses a dish from a feed item.
+//
+// The dish contents, price, and allergy information is contained in a CDATA tag
+// inside the <description> tag. For example:
+//
+// <description>
+// <![CDATA[Beef, wheat bread, french fries@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
+//          ^                               ^                                                                                 ^
+//          contents                        price                                                                             allergen (Gluten)
+//</description>
 func parseDish(item *gofeed.Item) Dish {
 	var dish Dish
 
 	dish.Name = item.Title
 
-	desc := trimCDATA(item.Description)
+	desc := trimCDATATags(item.Description)
 
 	dish.Contents = parseContents(desc)
 	dish.Price = parsePrice(desc)
@@ -89,12 +79,17 @@ func parseDish(item *gofeed.Item) Dish {
 	return dish
 }
 
-// The dish contents is all text content of the <description> tag leading up to the @ sign
+// parseContents parses a dish's contents from its description text.
+//
+// The dish contents is all text content leading up to the @ sign.
 func parseContents(desc string) string {
 	return strings.Split(desc, "@")[0]
 }
 
-// The dish price is all text content of the <description> tag following the first @ sign, up until the first space sign
+// parsePrice parses the price of a dish from its description text.
+//
+// The dish price is all text content following the first @ sign leading up to
+// the first space sign.
 func parsePrice(desc string) int {
 	afterAtSign := strings.Split(desc, "@")[1]
 	priceText := beforeSpace(afterAtSign)
@@ -108,17 +103,15 @@ func parsePrice(desc string) int {
 	return p
 }
 
-/*
-The dish allergens can be determined by searching the <description> tag for
-the filenames found in allergenImages.
-
-For example, the following dish contains the allergen Gluten ("gluten-white.png"):
-
-<description>
-	<![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
-                                                                                                                        ^^^^^^^^^^^^^^^^
-</description>
-*/
+// parseAllergens parses the allergens of a dish from its description text.
+//
+// The dish allergens can be determined by searching the description text for
+// occurrences of image sources defined in allergenImages.
+//
+// For example, the following dish description indicates that the dish
+// contains the Gluten allergen ("gluten-white.png"):
+//
+// <![CDATA[Hamburger of the Day@80 <br>  <img src=http://intern.chalmerskonferens.se/uploads/allergy/icon_white/1/gluten-white.png width=25 height=25 /> ><br><br>]]>
 func parseAllergens(desc string) []Allergen {
 	var al []Allergen
 
@@ -131,23 +124,28 @@ func parseAllergens(desc string) []Allergen {
 	return al
 }
 
-func trimCDATA(text string) string {
-	if !strings.HasPrefix(text, "<![CDATA") || !strings.HasSuffix(text, "]]>") {
+func trimCDATATags(text string) string {
+	if !strings.HasPrefix(text, "<![CDATA") ||
+		!strings.HasSuffix(text, "]]>") {
 		return text
 	}
 
 	return strings.TrimSuffix(strings.TrimPrefix(text, "<![CDATA"), "]]>")
 }
 
+// beforeSpace returns a substring of str, starting at the beginning of str
+// and ending right before the first occurrence of a space character (0x20).
+//
+// Returns str unmodified if str does not contain any spaces.
 func beforeSpace(str string) string {
 	indexFunc := func(r rune) bool {
 		return r == ' '
 	}
 
-	value := strings.IndexFunc(str, indexFunc)
+	i := strings.IndexFunc(str, indexFunc)
 
-	if value >= 0 && value <= len(str) {
-		return str[:value]
+	if i >= 0 && i <= len(str) {
+		return str[:i]
 	}
 
 	return str
